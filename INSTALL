@@ -1,0 +1,26 @@
+Compilation instructions:
+
+- install Inferno with sources - this version was tested  with the Inferno distribution from 10/03/2011;
+- patch your Inferno sources ( with the patch from the inferno.patch file ) or simply copy changed sources from inferno directory;
+- in a file <your path to the Inferno>/mkconfig change values of ROOT, SYSHOST and OBJTYPE to corresponding values:
+    ROOT = <your path to the Inferno>, SYSHOST=Linux, OBJTYPE=arm ( for PC-version of an emu with framebuffer support OBJTYPE=386) ;
+- set in the <your path to the Inferno>/emu/Linux-fb/mkfile an appropriate value TARGET;
+- add a path to the Inferno bin directory into the environment variable PATH;
+- change a path to the toolchain compiler in <your path to the Inferno>/mkfiles/mkfile-Linux-arm if it is necessary;
+- change the current directory  to <your path to the Inferno>/emu/Linux-fb;
+- run 'mk install';
+
+After these steps in <your path to the Inferno>/Linux/$OBJTYPE/bin will be placed a file with name 'emu-fb'. 
+
+For using of the ARM-version you should copy the Inferno tree with the ready emu on your device.
+Before running of the Inferno emu on your device, make sure there is a file /etc/fb.modes. If it isn't there, your have to make it by hands.
+This file has to contain a video mode descriptions for your device. On my iPAQ I made it by running command 'fbset > /etc/fb.modes'.
+
+Now you can try to start the emu, for example:
+
+<your path to the Inferno on your device>/Linux/arm/emu-fb -r<your path to the Inferno on your device> -g320x240 -S /dis/wm/wm.dis
+
+The -gXxY videomode value you should take from /etc/fb.modes. If the file /etc/fb.modes doesn't exist, emu will try to use current framebuffer settings.
+
+If keyboard or mouse is not working, a custom binding of input devices has to be made. A sample of the binding can be shown in any of input_*.c files. 
+Look at links in /dev/input/by-path/ and make a binding according a type of an interesting input device.

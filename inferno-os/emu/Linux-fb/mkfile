@@ -1,0 +1,56 @@
+<../../mkconfig
+#Configurable parameters
+TARGET= t42 # pc t40 t3 h3900
+CONF=emu-fb			#default configuration
+CONFLIST=emu-fb
+CLEANCONFLIST=
+
+INSTALLDIR=$ROOT/$SYSTARG/$OBJTYPE/bin	#path of directory where kernel is installed
+
+#end configurable parameters
+
+<$ROOT/mkfiles/mkfile-$SYSTARG-$OBJTYPE	#set vars based on target system
+
+<| $SHELLNAME ../port/mkdevlist $CONF	#sets $IP, $DEVS, $PORT, $LIBS
+
+OBJ=\
+	asm-$OBJTYPE.$O\
+	os.$O\
+        fb.$O\
+        screen.$O\
+	input_$TARGET.$O\
+	$CONF.root.$O\
+	lock.$O\
+	$DEVS\
+	$PORT\
+
+LIBNAMES=${LIBS:%=lib%.a}
+#libs=${LIBS:%=$ROOT/$OBJDIR/lib/lib%.a}
+
+HFILES=\
+
+CFLAGS=-DFB_SUPPORT '-DROOT="'$ROOT'"' -DEMU -I. -I../port -I$ROOT/$SYSTARG/$OBJTYPE/include -I$ROOT/include -I$ROOT/libinterp $CTHREADFLAGS $CFLAGS $EMUOPTIONS 
+SYSLIBS= -lm -lrt
+KERNDATE=`{$NDATE}
+
+default:V:	$O.$CONF
+
+$O.$CONF:	$OBJ $CONF.c $CONF.root.h $LIBNAMES
+	$CC $CFLAGS '-DKERNDATE='$KERNDATE $CONF.c
+	$LD $LDFLAGS -o $target $OBJ $CONF.$O $LIBFILES $SYSLIBS
+
+install:V: $O.$CONF
+	cp $O.$CONF $INSTALLDIR/$CONF
+
+%.$O:	../Linux/%.c
+	$CC $CFLAGS -I. ../Linux/$stem.c
+	
+%.$O:	../Linux/%.S
+	$AS $ASFLAGS ../Linux/$stem.S
+
+<../port/portmkfile
+
+devfs.$O:		../port/devfs-posix.c
+
+input_t40.$O:		input_kbd.c input_mouse.c
+input_pc.$O:		input_kbd.c input_mouse.c
