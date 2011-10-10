@@ -1,0 +1,45 @@
+*** 10 Oct 2011 ***
+emu/Linux/os.c - fixes according to the last version of os.c
+emu/Linux-fb/emu-fb - a fix of devices list
+emu/Linux-fb/fb.c - a fix of checking of return result from kproc
+emu/Linux-fb/input.c - a fix of checking of return result from kproc
+emu/Linux-fb/input_h3900.c - a fix of checking of return result from kproc
+emu/Linux-fb/mkfile - the t42 target was added
+emu/Linux-fb/input_t42.c - a binding of input devices for ThinkPad t42 was added
+
+*** 10 Jan 2008 ***
+emu/Linux-fb/screen.c - the cursor handling stuff was a bit fixed and improved
+
+*** 9 Jan 2008 ***
+emu/Linux-fb/fb.c - a bug with switching between terminals was fixed
+
+*** 7 Jan 2008 ***
+the input handling was totally re-implemented on linux input events (a basic idea and an initial implementation for Palm T3 by Salva Peiró <saoret.one@gmail.com>)
+some files were renamed
+emu/Linux-fb/devapm.c - Salva Peiró added the command 'blank'
+emu/Linux/os.c,
+emu/Linux-fb/fb.h
+emu/Linux-fb/fb.c,
+emu/Linux-fb/screen.c - the switching between virtual terminals was implemented
+emu/Linux-fb/fb.h,
+emu/Linux-fb/fb.c - a code to implement blanking of screen was added
+emu/Linux-fb/mkfile - a variable TARGET was added
+emu/Linux-fb/kbd.c,
+emu/Linux-fb/mouse.c - the files were moved into the emu/Linux-fb/obsolete directory
+
+*** 13 August 2006 ***
+all framebuffer-specific sources were moved into Linux-fb directory
+a style of all framebuffer-specific sources was changed close to the style of inferno sources
+emu/Linux-fb/framebuffer.h - the interface of framebuffer was changed
+emu/Linux-fb/framebuffer.c - the new interface was impelemented, the colormap stuff was added
+emu/Linux-fb/screen.c - the cursor stuff was added, the new framebuffer interface was used
+emu/Linux/asm-arm.S - _tas function was implemented
+
+*** 21 Aug 2005 ***
+emu/Linux/h3900_tc.c - touchscreen and keys handling was simplified
+emu/Linux/mouse.c - mouse handling was simplified
+
+
+*** 7 Jun 2005 ***
+emu/Linux/screen.c - fix a bug with setting a mouse pointer via /dev/pointer 
+emu/Linux/h3900_tc.c - minor improvements

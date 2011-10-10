@@ -1,0 +1,41 @@
+diff -ruN inferno-os/libtk/entry.c inferno.new/libtk/entry.c
+--- inferno-os/libtk/entry.c	2005-02-21 20:14:48.000000000 +0300
++++ inferno.new/libtk/entry.c	2008-01-04 19:57:54.000000000 +0300
+@@ -21,7 +21,7 @@
+ #define	O(t, e)		((long)(&((t*)0)->e))
+ 
+ #define CNTL(c) ((c)&0x1f)
+-#define DEL 0x7f
++#define DEL Del
+ 
+ /* Layout constants */
+ enum {
+@@ -59,7 +59,7 @@
+ 	{TkKey|CNTL('k'),	"%W delete insert end;%W see insert"},
+ 	{TkKey|CNTL('u'),	"%W delete 0 end;%W see insert"},
+ 	{TkKey|CNTL('w'),	"%W delete sel.first sel.last; %W tkEntryBW;%W see insert"},
+-	{TkKey|DEL,		"%W tkEntryBS 1;%W see insert"},
++	{TkKey|Del,		"%W tkEntryBS 1;%W see insert"},
+ 	{TkKey|CNTL('\\'),	"%W selection clear"},
+ 	{TkKey|CNTL('/'),	"%W selection range 0 end"},
+ 	{TkKey|Left,	"%W icursor insert-1;%W selection clear;%W selection from insert;%W see insert"},
+diff -ruN inferno-os/libtk/textw.c inferno.new/libtk/textw.c
+--- inferno-os/libtk/textw.c	2006-08-03 16:37:58.000000000 +0400
++++ inferno.new/libtk/textw.c	2008-01-04 19:57:53.000000000 +0300
+@@ -83,7 +83,6 @@
+ };
+ 
+ #define CNTL(c) ((c)&0x1f)
+-#define DEL 0x7f
+ 
+ static TkEbind tktbinds[] = {
+ 	{TkButton1P,		"%W tkTextButton1 %X %Y"},
+@@ -105,7 +104,7 @@
+ 	{TkKey|CNTL('f'),	"%W tkTextSetCursor insert+1c"},
+ 	{TkKey|Right,		"%W tkTextSetCursor insert+1c"},
+ 	{TkKey|CNTL('h'),	"%W tkTextDelIns -c"},
+-	{TkKey|DEL,		"%W tkTextDelIns +c"},
++	{TkKey|Del,		"%W tkTextDelIns +c"},
+ 	{TkKey|CNTL('k'),	"%W delete insert {insert lineend}"},
+ 	{TkKey|CNTL('n'),	"%W tkTextSetCursor {insert+1l}"},
+ 	{TkKey|Down,		"%W tkTextSetCursor {insert+1l}"},
